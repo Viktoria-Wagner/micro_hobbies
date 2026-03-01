@@ -83,10 +83,10 @@ class HobbySwipeDeck extends StatelessWidget {
                     textColor: Colors.blue[800]!
                 ),
                 InfoBadge(
-                    icon: Icons.bolt,
-                    text: hobby.difficulty,
-                    bgColor: Colors.purpleAccent.withOpacity(0.2),
-                    textColor: Colors.purple[800]!
+                  icon: Icons.bolt,
+                  text: hobby.difficulty.label,
+                  bgColor: hobby.difficulty.baseColor.withOpacity(0.2),
+                  textColor: hobby.difficulty.baseColor[800]!,
                 ),
               ],
             ),

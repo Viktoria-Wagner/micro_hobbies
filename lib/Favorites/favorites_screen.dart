@@ -72,10 +72,10 @@ class FavoritesScreen extends StatelessWidget {
                           textColor: Colors.blue[900]!
                       ),
                       InfoBadge(
-                          icon: Icons.bolt,
-                          text: hobby.difficulty,
-                          bgColor: Colors.purpleAccent.withOpacity(0.2),
-                          textColor: Colors.purple[800]!
+                        icon: Icons.bolt,
+                        text: hobby.difficulty.label, // Holt das Wort "Leicht", "Mittel", "Schwer"
+                        bgColor: hobby.difficulty.baseColor.withOpacity(0.2), // Heller Hintergrund
+                        textColor: hobby.difficulty.baseColor[800]!, // Dunkler Text
                       ),
                     ],
                   ),

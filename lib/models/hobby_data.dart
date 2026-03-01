@@ -1,3 +1,17 @@
+import 'package:flutter/material.dart';
+
+enum Difficulty {
+  leicht('Leicht', Colors.green),
+  mittel('Mittel', Colors.orange),
+  schwer('Schwer', Colors.red);
+
+  // Jede Stufe bekommt automatisch einen Text und eine eigene Farbe
+  final String label;
+  final MaterialColor baseColor;
+
+  const Difficulty(this.label, this.baseColor);
+}
+
 //Die Bauanleitung für ein Hobby
 class Hobby {
   final String title;
@@ -7,7 +21,7 @@ class Hobby {
   final String time;
   final String materials;
   final String category;
-  final String difficulty;
+  final Difficulty difficulty;
 
   Hobby({
     required this.title,
@@ -33,7 +47,7 @@ class HobbyDatabase {
       time: '30 Min',
       materials: '3 weiche Bälle (oder zusammengerollte Socken)',
       category: 'Geschicklichkeit',
-      difficulty: 'mittel',
+      difficulty: Difficulty.mittel,
     ),
     Hobby(
       title: 'Origami Kranich',
@@ -44,7 +58,7 @@ class HobbyDatabase {
       time: '15 Min',
       materials: 'Ein quadratisches Blatt Papier',
       category: 'Kreativität',
-      difficulty: 'leicht',
+      difficulty: Difficulty.leicht,
     ),
     Hobby(
       title: 'Sauerteig ansetzen',
@@ -55,7 +69,7 @@ class HobbyDatabase {
       time: '5 Min (täglich)',
       materials: 'Roggenmehl, Wasser, ein sauberes Einmachglas',
       category: 'Kochen & Backen',
-      difficulty: 'leicht',
+      difficulty: Difficulty.leicht,
     ),
     Hobby(
       title: 'Kalt Duschen',
@@ -66,7 +80,7 @@ class HobbyDatabase {
       time: '5 Min',
       materials: 'Eine Dusche, ein Handtuch, etwas Mut',
       category: 'Gesundheit',
-      difficulty: 'mittel',
+      difficulty: Difficulty.mittel,
     ),
     Hobby(
       title: 'Makramee Feder',
@@ -77,7 +91,7 @@ class HobbyDatabase {
       time: '45 Min',
       materials: 'Makramee-Garn, Schere, Kamm',
       category: 'DIY',
-      difficulty: 'mittel',
+      difficulty: Difficulty.mittel,
     ),
     Hobby(
       title: 'Sternbilder finden',
@@ -88,7 +102,7 @@ class HobbyDatabase {
       time: '20 Min',
       materials: 'Klarer Himmel, evt. eine Astronomie-App',
       category: 'Natur & Wissen',
-      difficulty: 'leicht',
+      difficulty: Difficulty.leicht,
     ),
     Hobby(
       title: 'Geocaching',
@@ -99,7 +113,7 @@ class HobbyDatabase {
       time: '1 Stunde',
       materials: 'Smartphone mit GPS, ein Stift',
       category: 'Outdoor',
-      difficulty: 'leicht',
+      difficulty: Difficulty.leicht,
     ),
     Hobby(
       title: 'Achtsamkeit',
@@ -110,7 +124,7 @@ class HobbyDatabase {
       time: '10 Min',
       materials: 'Ein ruhiger Ort',
       category: 'Mentale Gesundheit',
-      difficulty: 'leicht',
+      difficulty: Difficulty.leicht,
     ),
     Hobby(
       title: 'Gemüse fermentieren',
@@ -121,7 +135,7 @@ class HobbyDatabase {
       time: '30 Min (dann warten)',
       materials: 'Weißkohl, Salz, Einmachglas',
       category: 'Kochen & Backen',
-      difficulty: 'leicht',
+      difficulty: Difficulty.leicht,
     ),
     Hobby(
       title: 'Kalligraphie Basics',
@@ -133,7 +147,7 @@ class HobbyDatabase {
       time: '30 Min',
       materials: 'Brush-Pen (Pinselstift) oder weicher Bleistift, Papier',
       category: 'Kunst',
-      difficulty: 'mittel',
+      difficulty: Difficulty.leicht,
     ),
     Hobby(
       title: 'Freihändiger Handstand',
@@ -143,7 +157,7 @@ class HobbyDatabase {
       time: 'Wochen bis Monate (15 Min/Tag)',
       materials: 'Eine weiche Matte, eine Wand und extrem viel Geduld',
       category: 'Sport & Akrobatik',
-      difficulty: 'schwer',
+      difficulty: Difficulty.schwer,
     ),
   ];
 }
