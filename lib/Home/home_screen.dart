@@ -10,6 +10,8 @@ import 'package:confetti/confetti.dart';
 import '../SharedWidgets/trophy_dialog.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 import '../Theme/app_theme.dart';
+import 'package:provider/provider.dart';
+import '../Theme/theme_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -138,6 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //sonst wird custom bottom nav nicht sofort geändert, sondern erst nach Verwendung
+    context.watch<ThemeProvider>();
     return Scaffold(
       body: Stack(
         children: [
