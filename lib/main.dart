@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:new_micro_hobbies/Theme/app_theme.dart';
+import 'package:new_micro_hobbies/providers/hobby_provider.dart';
 import 'Home/home_screen.dart';
 import 'package:provider/provider.dart';
-import 'Provider/hobby_provider.dart';
-import 'Theme/theme_provider.dart';
+import 'providers/theme_provider.dart';
 
 void main() {
   runApp(
-    //MultiProvider erlaubt es uns, beliebig viele Provider zu starten
+    //MultiProvider erlaubt es uns, beliebig viele providers zu starten
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),

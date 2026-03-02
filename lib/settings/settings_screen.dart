@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import '../Theme/app_theme.dart';
-import '../Theme/theme_provider.dart';
-import '../Settings/reset_dialog.dart';
-import '../SharedWidgets/custom_ui_elements.dart'; // NEU: Unsere ausgelagerten UI-Elemente!
+import '../theme/app_theme.dart';
+import '../providers/theme_provider.dart';
+import '../settings/reset_dialog.dart';
+import '../shared_widgets/custom_ui_elements.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../models/hobby_data.dart';
-import '../SharedWidgets/info_badge.dart';
-import '../Theme/app_theme.dart';
+import '../shared_widgets/info_badge.dart';
+import '../theme/app_theme.dart';
 
 class FavoritesScreen extends StatelessWidget {
   final List<Hobby> savedHobbies;
@@ -27,7 +27,7 @@ class FavoritesScreen extends StatelessWidget {
       ),
       builder: (context) {
         return Padding(
-          // Padding unten sorgt dafür, dass die Navigation/Home-Leiste des Handys nichts verdeckt
+          // Padding unten sorgt dafür, dass die Navigation/home-Leiste des Handys nichts verdeckt
           padding: EdgeInsets.only(
             left: 24.0,
             right: 24.0,

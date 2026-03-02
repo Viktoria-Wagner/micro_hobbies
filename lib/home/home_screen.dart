@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import '../Provider/hobby_provider.dart';
+import '../providers/hobby_provider.dart';
 import '../models/hobby_data.dart';
-import '../SharedWidgets/custom_bottom_nav.dart';
+import '../shared_widgets/custom_bottom_nav.dart';
 import '../Favorites/favorites_screen.dart';
 import '../Discovery/discover_screen.dart';
 import '../Trophies/trophies_screen.dart';
 import '../Settings/settings_screen.dart';
 import 'package:confetti/confetti.dart';
-import '../SharedWidgets/trophy_dialog.dart';
+import '../shared_widgets/trophy_dialog.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 import '../Theme/app_theme.dart';
 import 'package:provider/provider.dart';
-import '../Theme/theme_provider.dart';
+import '../providers/theme_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

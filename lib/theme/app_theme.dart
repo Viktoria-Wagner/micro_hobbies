@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'theme_provider.dart';
+import '../providers/theme_provider.dart';
 
 class AppColors {
   //Hintergründe
@@ -42,7 +42,7 @@ class AppStyles {
   static BorderRadius get radiusLarge => BorderRadius.circular(20); // Für Swipe-Karten & Dialoge
   static BorderRadius get radiusSmall => BorderRadius.circular(12); // Für Listen & Buttons
 
-// Standard-Trennlinie für Listen (wie in den Settings)
+// Standard-Trennlinie für Listen (wie in den settings)
   static Widget get listDivider => Divider(height: 1, indent: 50, color: AppColors.dividerLight);}
 
 class AppTypography {

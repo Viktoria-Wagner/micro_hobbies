@@ -2,9 +2,9 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
-import '../Theme/app_theme.dart';
+import '../theme/app_theme.dart';
 import '../models/hobby_data.dart';
-import '../SharedWidgets/info_badge.dart';
+import '../shared_widgets/info_badge.dart';
 
 class HobbySwipeDeck extends StatelessWidget {
   final CardSwiperController controller;

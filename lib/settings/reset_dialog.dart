@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../Provider/hobby_provider.dart';
-import '../Theme/app_theme.dart';
+import '../providers/hobby_provider.dart';
+import '../theme/app_theme.dart';
 
 class ResetDialogs {
   // Hilfsmethode: Der Bestätigungs-Dialog für das Zurücksetzen
