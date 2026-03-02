@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'theme_provider.dart';
 
 class AppColors {
   //Hintergründe
-  static const Color backgroundPastel = Color(0xFFFFEAD1);
-  static const Color cardWhite = Colors.white;
-  static const Color navBarBackground = Color(0xFFFFF6EB);
+  //Reagieren auf den Dark Mode!
+  static Color get backgroundPastel => ThemeProvider.isDark ? const Color(0xFF1E1E1E) : const Color(0xFFFFEAD1);
+  static Color get cardWhite => ThemeProvider.isDark ? const Color(0xFF2C2C2C) : Colors.white;
+  static Color get navBarBackground => ThemeProvider.isDark ? const Color(0xFF1E1E1E) : const Color(0xFFFFF6EB);
+  static Color get backgroundPastelTransparent => ThemeProvider.isDark ? const Color(0xAA1E1E1E) : const Color(0xAAFFEAD1); // Für das leere Regal
 
   // Wisch- & Aktions-Farben
   static const Color actionRed = Color(0xFFF4A896); // Ablehnen & Löschen
@@ -17,18 +20,18 @@ class AppColors {
   static const Color avatarPurple = Color(0x8CE5A8F3); // Hintergrund der runden Icons
 
   //Texte & Linien
-  static const Color textDark = Colors.black87; // Normaler Text
-  static const Color textMuted = Colors.black54; // Grauer Text
-  static const Color textLight = Colors.black38; // Sehr heller Text
-  static const Color dividerLight = Colors.black12; // Zarte Ränder und Trennlinien
+  //Reagieren auf den Dark Mode
+  static Color get textDark => ThemeProvider.isDark ? Colors.white : Colors.black87; // Normaler Text
+  static Color get textMuted => ThemeProvider.isDark ? Colors.white70 : Colors.black54; // Grauer Text
+  static Color get textLight => ThemeProvider.isDark ? Colors.white38 : Colors.black38; // Sehr heller Text
+  static Color get dividerLight => ThemeProvider.isDark ? Colors.white12 : Colors.black12; // Zarte Ränder und Trennlinien
 
-  static const Color backgroundPastelTransparent = Color(0xAAFFEAD1); // Für das leere Regal
 }
 
 class AppStyles {
   //Standard-Schatten für Karten
   static List<BoxShadow> get cardShadow => [
-    const BoxShadow(
+    BoxShadow(
         color: AppColors.dividerLight,
         blurRadius: 10,
         spreadRadius: 2
@@ -40,13 +43,13 @@ class AppStyles {
   static BorderRadius get radiusSmall => BorderRadius.circular(12); // Für Listen & Buttons
 
 // Standard-Trennlinie für Listen (wie in den Settings)
-  static Widget listDivider = const Divider(height: 1, indent: 50, color: AppColors.dividerLight);
-}
+  static Widget get listDivider => Divider(height: 1, indent: 50, color: AppColors.dividerLight);}
 
 class AppTypography {
   // Später wird dieser Wert durch die Einstellungen (Klein/Mittel/Groß) verändert.
   // Z.B. Klein = 0.8, Mittel = 1.0, Groß = 1.2
-  static double fontScale = 1.0;
+  //holen uns den Skalierungsfaktor live aus dem ThemeProvider!
+  static double get fontScale => ThemeProvider.scale;
 
   //Überschriften
   static TextStyle get headlineLarge => TextStyle(
@@ -97,7 +100,7 @@ class AppTypography {
   static TextStyle get sectionHeader => TextStyle(
     fontSize: 12 * fontScale,
     fontWeight: FontWeight.bold,
-    color: Colors.black45,
+    color: AppColors.textMuted,
     letterSpacing: 1.2,
   );
 }

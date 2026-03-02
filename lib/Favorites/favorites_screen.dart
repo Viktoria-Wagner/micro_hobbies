@@ -80,7 +80,7 @@ class FavoritesScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 24),
-                const Divider(color: AppColors.dividerLight, thickness: 2),
+                Divider(color: AppColors.dividerLight, thickness: 2),
                 const SizedBox(height: 16),
 
                 //Die Kurzbeschreibung als Einleitung
