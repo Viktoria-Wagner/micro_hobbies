@@ -27,10 +27,9 @@ class DeckDrawer extends StatelessWidget {
               child: Text('STANDARD', style: AppTypography.sectionHeader),
             ),
             const DeckListTile(title: 'Starterdeck', icon: Icons.star_rounded, isPremium: false),
-            const DeckListTile(title: 'Entspannt (Leicht)', icon: Icons.battery_charging_full_rounded, isPremium: false),
-            const DeckListTile(title: 'Fokus (Mittel)', icon: Icons.battery_std_rounded, isPremium: false),
-            const DeckListTile(title: 'Meister (Schwer)', icon: Icons.battery_alert_rounded, isPremium: false),
-
+            const DeckListTile(title: 'Entspannt (Leicht)', icon: Icons.spa_rounded, isPremium: false),
+            const DeckListTile(title: 'Fokus (Mittel)', icon: Icons.center_focus_strong_rounded, isPremium: false),
+            const DeckListTile(title: 'Meister (Schwer)', icon: Icons.local_fire_department_rounded, isPremium: false),
              Padding(
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Divider(color: AppColors.dividerLight, indent: 16, endIndent: 16),
