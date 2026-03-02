@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // NEU: Der Speicher-Import
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
   static bool isDark = false;
@@ -17,12 +17,12 @@ class ThemeProvider extends ChangeNotifier {
   Future<void> _loadFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
 
-    // Liest die Werte aus. Wenn noch nichts gespeichert wurde (??), nimm den Standardwert.
+    //Liest die Werte aus. Wenn noch nichts gespeichert wurde (??), nimm den Standardwert.
     isDark = prefs.getBool('isDark') ?? false;
     currentLanguage = prefs.getString('language') ?? 'Deutsch';
     currentFontSize = prefs.getString('fontSize') ?? 'Mittel';
 
-    // Skalierung passend zur geladenen Schriftgröße setzen
+    //Skalierung passend zur geladenen Schriftgröße setzen
     if (currentFontSize == 'Klein') {
       scale = 0.85;
     } else if (currentFontSize == 'Groß') {
@@ -47,7 +47,7 @@ class ThemeProvider extends ChangeNotifier {
     currentFontSize = size;
 
     if (size == 'Klein') {
-      scale = 0.85;
+      scale = 0.80;
     } else if (size == 'Mittel') {
       scale = 1.0;
     } else if (size == 'Groß') {

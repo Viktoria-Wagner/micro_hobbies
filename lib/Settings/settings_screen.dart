@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import '../Theme/app_theme.dart';
 import '../Theme/theme_provider.dart';
+import '../Settings/reset_dialog.dart';
+import '../SharedWidgets/custom_ui_elements.dart'; // NEU: Unsere ausgelagerten UI-Elemente!
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -12,10 +14,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   @override
   Widget build(BuildContext context) {
-    //Sobald sich was ändert, baut sich der Screen neu!
     final themeProvider = context.watch<ThemeProvider>();
 
     return Scaffold(
@@ -23,9 +23,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          //Konto und Cloud
-          _buildSectionHeader('Konto & Backup'),
-          _buildPastelCard(
+          // Konto und Cloud
+          const SectionHeader('Konto & Backup'),
+          PastelCard(
             child: Column(
               children: [
                 ListTile(
@@ -56,24 +56,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          //Darstellung
-          _buildSectionHeader('Darstellung'),
-          _buildPastelCard(
+
+          // Darstellung
+          const SectionHeader('Darstellung'),
+          PastelCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Dark Mode
                 SwitchListTile(
-                  activeColor: Colors.orangeAccent, // Weicheres Orange
+                  thumbColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                    if (states.contains(WidgetState.selected)) {
+                      return AppColors.primaryAccent; // Dein weicheres Orange
+                    }
+                    return Colors.grey.shade400; // Farbe, wenn der Schalter aus ist
+                  }),
+                  trackColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+                    if (states.contains(WidgetState.selected)) {
+                      return AppColors.primaryAccent.withAlpha(77); // Sanfte Spur im Hintergrund
+                    }
+                    return AppColors.dividerLight; // Spur, wenn der Schalter aus ist
+                  }),
                   secondary: Icon(Icons.dark_mode_outlined, color: Colors.deepPurple[300]), // Weicheres Lila
                   title: Text('Dark Mode', style: AppTypography.body),
                   value: ThemeProvider.isDark,
                   onChanged: (bool value) {
-                    //Befehl an den Provider senden!
+                    //Befehl an den Provider senden, um den Dark Mode zu ändern
                     themeProvider.toggleDarkMode(value);
                   },
                 ),
-                //Sprache
                 AppStyles.listDivider,
                 ListTile(
                   leading: Icon(Icons.language, color: Colors.blue[300]),
@@ -81,13 +91,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _buildFlagButton('🇩🇪', 'Deutsch', themeProvider), // Provider übergeben
+                      _buildFlagButton('🇩🇪', 'Deutsch', themeProvider),
                       const SizedBox(width: 10),
-                      _buildFlagButton('🇬🇧', 'English', themeProvider), // Provider übergeben
+                      _buildFlagButton('🇬🇧', 'English', themeProvider),
                     ],
                   ),
                 ),
-                //Schriftgröße
                 AppStyles.listDivider,
                 ListTile(
                   leading: Icon(Icons.format_size, color: Colors.green[300]),
@@ -101,10 +110,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ButtonSegment(value: 'Mittel', label: Text('Mittel', style: AppTypography.body)),
                       ButtonSegment(value: 'Groß', label: Text('Groß', style: AppTypography.body)),
                     ],
-                    //Wert kommt aus dem Provider
                     selected: {themeProvider.currentFontSize},
                     onSelectionChanged: (Set<String> newSelection) {
-                      //Befehl an den Provider senden
                       themeProvider.setFontSize(newSelection.first);
                     },
                     style: ButtonStyle(
@@ -123,18 +130,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             ),
           ),
+
+          // Daten - Zurücksetzen
           const SizedBox(height: 24),
-          //Daten - Zurücksetzten
-          _buildSectionHeader('Daten'),
-          _buildPastelCard(
+          const SectionHeader('Daten'),
+          PastelCard(
             child: ListTile(
               leading: Icon(Icons.delete_forever, color: Colors.red[400]),
               title: Text('Fortschritt zurücksetzen', style: AppTypography.body.copyWith(color: Colors.red[400])),
-              onTap: () {},
+              onTap: () {
+                ResetDialogs.showResetDialog(context);
+              },
             ),
           ),
           const SizedBox(height: 40),
-          //Über den Entwickler
+
+          // Über den Entwickler
           const SizedBox(height: 10),
           Text(
             'Made with ❤️ by Viktoria Wagner',
@@ -153,36 +164,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  //Hilfsmethode: Überschriften
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, bottom: 8),
-      child: Text(
-        title.toUpperCase(),
-        style: AppTypography.sectionHeader,
-      ),
-    );
-  }
 
-  //Hilfsmethode: Pastell-Karte
-  Widget _buildPastelCard({required Widget child}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.cardWhite,
-        borderRadius: AppStyles.radiusLarge,
-        border: Border.all(color: AppColors.dividerLight),
-      ),
-      child: child,
-    );
-  }
-
-  // Hilfsmethode: Flaggen
   Widget _buildFlagButton(String emoji, String language, ThemeProvider provider) {
     bool isSelected = provider.currentLanguage == language;
 
     return GestureDetector(
       onTap: () {
-        provider.setLanguage(language); //Befehl an Provider
+        provider.setLanguage(language);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),

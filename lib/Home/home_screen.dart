@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../models/hobby_data.dart';
-import 'custom_bottom_nav.dart';
+import '../SharedWidgets/custom_bottom_nav.dart';
 import '../Favorites/favorites_screen.dart';
 import '../Discovery/discover_screen.dart';
 import '../Trophies/trophies_screen.dart';
