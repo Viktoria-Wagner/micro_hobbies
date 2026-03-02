@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import '../Provider/hobby_provider.dart';
 import '../models/hobby_data.dart';
 import '../SharedWidgets/custom_bottom_nav.dart';
 import '../Favorites/favorites_screen.dart';
@@ -23,8 +24,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final CardSwiperController cardSwiperController = CardSwiperController();
   List<Hobby> myCards = HobbyDatabase.dummyHobbies;
-  List<Hobby> gemerkteHobbies = [];
-  List<Hobby> erledigteHobbies = [];
   int _selectedIndex = 0; //Tab, der aktuell ausgewählt ist
   late ConfettiController _confettiController;
 
@@ -37,9 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     if (direction == CardSwiperDirection.right) {
-      setState(() {
-        gemerkteHobbies.add(myCards[previousIndex]);
-      });
+      context.read<HobbyProvider>().addSavedHobby(myCards[previousIndex]);
       //Pop-Up, dass ein Hobby gemerkt wurde
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -66,25 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _hobbyLoeschen(Hobby hobby) {
-    setState(() {
-      gemerkteHobbies.remove(hobby);
-    });
+    context.read<HobbyProvider>().removeSavedHobby(hobby);
   }
 
   void _hobbyErledigt(Hobby hobby) {
-    setState(() {
-      //Auf Einzigartigkeit prüfen, ob ein Hobby mit exakt diesem Titel schon im Schrank steht.
-      bool schonVorhanden = erledigteHobbies.any(
-        (element) => element.title == hobby.title,
-      );
-
-      // Nur hinzufügen, wenn es noch NICHT da ist
-      if (!schonVorhanden) {
-        erledigteHobbies.add(hobby);
-      }
-      _starteFeierAnimation(hobby);
-      gemerkteHobbies.remove(hobby); // Aus den Favoriten entfernen
-    });
+    context.read<HobbyProvider>().addCompletedHobby(hobby);
+    _starteFeierAnimation(hobby);
   }
 
   // Diese Methode kümmert sich NUR um die UI und die Effekte
@@ -94,8 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     _confettiController.play();
+    _zeigeTrophaeeDialog(hobby);
+  }
 
-    // HIER IST DIE MAGIE: Der ganze Code ist weg, nur noch der Aufruf bleibt!
+  void _zeigeTrophaeeDialog(Hobby hobby) {
     showDialog(
       context: context,
       builder: (BuildContext context) => TrophyDialog(hobby: hobby),
@@ -109,39 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  //diese Methode navigiert zwischen den Tabs der Navigationsleiste
-  Widget _getSelectedScreen() {
-    switch (_selectedIndex) {
-      case 0:
-        return DiscoverScreen(
-          controller: cardSwiperController,
-          hobbies: myCards,
-          onSwipe: _wurdeGewischt,
-        );
-      case 1:
-        return FavoritesScreen(
-          savedHobbies: gemerkteHobbies,
-          onDelete: _hobbyLoeschen,
-          onComplete: _hobbyErledigt,
-        );
-      case 2:
-        return TrophiesScreen(completedHobbies: erledigteHobbies);
-      case 3:
-        return const SettingsScreen();
-      default:
-        return Center(
-          child: Text(
-            'Fehler: Unbekannter Tab',
-            style: AppTypography.body.copyWith(color: AppColors.textMuted),
-          ),
-        );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     //sonst wird custom bottom nav nicht sofort geändert, sondern erst nach Verwendung
     context.watch<ThemeProvider>();
+    final hobbyProvider = context.watch<HobbyProvider>();
     return Scaffold(
       body: Stack(
         children: [
@@ -156,11 +114,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   onSwipe: _wurdeGewischt,
                 ),
                 FavoritesScreen(
-                  savedHobbies: gemerkteHobbies,
+                  savedHobbies: hobbyProvider.savedHobbies, //Daten aus dem Provider
                   onDelete: _hobbyLoeschen,
                   onComplete: _hobbyErledigt,
                 ),
-                TrophiesScreen(completedHobbies: erledigteHobbies),
+                TrophiesScreen(
+                  completedHobbies: hobbyProvider.completedHobbies,
+                ),
                 const SettingsScreen(),
               ],
             ),

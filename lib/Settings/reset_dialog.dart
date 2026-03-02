@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../Provider/hobby_provider.dart';
 import '../Theme/app_theme.dart';
 
 class ResetDialogs {
@@ -52,11 +54,7 @@ class ResetDialogs {
 
   // Die eigentliche Lösch-Logik
   static Future<void> _performReset(BuildContext context) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    // Hier löschen wir später explizit die Schlüssel für die Hobbys, z.B.:
-    // await prefs.remove('savedHobbies');
-    // await prefs.remove('completedHobbies');
+    await context.read<HobbyProvider>().resetProgress();
 
     // Kleines visuelles Feedback für den Nutzer, dass es geklappt hat
     if (context.mounted) {
