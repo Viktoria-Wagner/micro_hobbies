@@ -36,7 +36,7 @@ class FavoritesScreen extends StatelessWidget {
           child: SingleChildScrollView( // Macht den Inhalt scrollbar, falls der Text sehr lang ist
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start, // Richtet Texte linksbündig aus, liest sich besser!
+              crossAxisAlignment: CrossAxisAlignment.start, // Richtet Texte linksbündig aus
               children: [
 
                 //Der Titel
@@ -52,7 +52,7 @@ class FavoritesScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                //Die Info-Badges (Kategorie & Zeit)
+                //Die Info-Badges
                 Center(
                   child: Wrap(
                     alignment: WrapAlignment.center,
@@ -72,10 +72,10 @@ class FavoritesScreen extends StatelessWidget {
                           textColor: Colors.blue[900]!
                       ),
                       InfoBadge(
-                          icon: Icons.bolt,
-                          text: hobby.difficulty,
-                          bgColor: Colors.purpleAccent.withOpacity(0.2),
-                          textColor: Colors.purple[800]!
+                        icon: Icons.bolt,
+                        text: hobby.difficulty.label,
+                        bgColor: hobby.difficulty.baseColor.withOpacity(0.2),
+                        textColor: hobby.difficulty.baseColor[800]!,
                       ),
                     ],
                   ),
