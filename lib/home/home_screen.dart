@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 DiscoverScreen(
                   controller: cardSwiperController,
-                  hobbies: myCards,
+                  hobbies: hobbyProvider.availableHobbies,
                   onSwipe: _wurdeGewischt,
                 ),
                 FavoritesScreen(

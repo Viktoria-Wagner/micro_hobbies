@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'MicroHobbies',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.backgroundPastel,
-        useMaterial3: true, //package
+        useMaterial3: true,
       ),
       home: const HomeScreen(), //Aufruf des Startbildschirms
     );
