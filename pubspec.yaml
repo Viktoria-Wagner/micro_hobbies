@@ -39,6 +39,7 @@ dependencies:
   confetti: ^0.8.0
   flip_card: ^0.7.0
   lazy_load_indexed_stack: ^1.2.1
+  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:

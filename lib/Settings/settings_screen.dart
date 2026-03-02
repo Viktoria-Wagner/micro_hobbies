@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import '../Theme/app_theme.dart';
+import '../Theme/theme_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -10,12 +12,12 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _isDarkMode = false;
-  String _selectedLanguage = 'Deutsch';
-  String _selectedFontSize = 'Mittel';
 
   @override
   Widget build(BuildContext context) {
+    //Sobald sich was ändert, baut sich der Screen neu!
+    final themeProvider = context.watch<ThemeProvider>();
+
     return Scaffold(
       backgroundColor: AppColors.backgroundPastel,
       body: ListView(
@@ -27,9 +29,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               children: [
                 ListTile(
-                  leading: const Icon(Icons.apple, color:AppColors.textDark),
+                  leading: Icon(Icons.apple, color: AppColors.textDark),
                   title: Text('Mit Apple anmelden', style: AppTypography.body),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
                   onTap: () {},
                 ),
                 AppStyles.listDivider,
@@ -40,14 +42,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     height: 24,
                   ),
                   title: Text('Mit Google anmelden', style: AppTypography.body),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
                   onTap: () {},
                 ),
                 AppStyles.listDivider,
                 ListTile(
                   leading: const Icon(Icons.email_outlined, color: AppColors.primaryAccent),
                   title: Text('Mit E-Mail anmelden', style: AppTypography.body),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
                   onTap: () {},
                 ),
               ],
@@ -65,9 +67,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   activeColor: Colors.orangeAccent, // Weicheres Orange
                   secondary: Icon(Icons.dark_mode_outlined, color: Colors.deepPurple[300]), // Weicheres Lila
                   title: Text('Dark Mode', style: AppTypography.body),
-                  value: _isDarkMode,
+                  value: ThemeProvider.isDark,
                   onChanged: (bool value) {
-                    setState(() => _isDarkMode = value);
+                    //Befehl an den Provider senden!
+                    themeProvider.toggleDarkMode(value);
                   },
                 ),
                 //Sprache
@@ -78,9 +81,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _buildFlagButton('🇩🇪', 'Deutsch'),
+                      _buildFlagButton('🇩🇪', 'Deutsch', themeProvider), // Provider übergeben
                       const SizedBox(width: 10),
-                      _buildFlagButton('🇬🇧', 'English'),
+                      _buildFlagButton('🇬🇧', 'English', themeProvider), // Provider übergeben
                     ],
                   ),
                 ),
@@ -98,11 +101,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ButtonSegment(value: 'Mittel', label: Text('Mittel', style: AppTypography.body)),
                       ButtonSegment(value: 'Groß', label: Text('Groß', style: AppTypography.body)),
                     ],
-                    selected: {_selectedFontSize},
+                    //Wert kommt aus dem Provider
+                    selected: {themeProvider.currentFontSize},
                     onSelectionChanged: (Set<String> newSelection) {
-                      setState(() {
-                        _selectedFontSize = newSelection.first;
-                      });
+                      //Befehl an den Provider senden
+                      themeProvider.setFontSize(newSelection.first);
                     },
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.resolveWith<Color>(
@@ -174,14 +177,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   // Hilfsmethode: Flaggen
-  Widget _buildFlagButton(String emoji, String language) {
-    bool isSelected = _selectedLanguage == language;
+  Widget _buildFlagButton(String emoji, String language, ThemeProvider provider) {
+    bool isSelected = provider.currentLanguage == language;
 
     return GestureDetector(
       onTap: () {
-        setState(() {
-          _selectedLanguage = language;
-        });
+        provider.setLanguage(language); //Befehl an Provider
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
