@@ -8,12 +8,20 @@ class HobbyProvider extends ChangeNotifier {
   List<Hobby> _completedHobbies = [];
   String _activeDeck = 'Starterdeck';
 
+  //Liste der freigeschalteten Premium-Decks
+  List<String> _unlockedPremiumDecks = [];
+
   // Öffentlicher Zugriff für die UI (nur lesen)
   List<Hobby> get savedHobbies => _savedHobbies;
 
   List<Hobby> get completedHobbies => _completedHobbies;
 
   String get activeDeck => _activeDeck;
+
+  // Abfrage, ob ein Deck frei ist
+  bool isPremiumDeckUnlocked(String deckName) {
+    return _unlockedPremiumDecks.contains(deckName);
+  }
 
   // Diese Methode ändert das Deck und sagt der App: "Neu laden"
   void setActiveDeck(String deckName) {
@@ -67,6 +75,8 @@ class HobbyProvider extends ChangeNotifier {
     final completedTitles = prefs.getStringList('completedHobbies') ?? [];
     //aktives Deck laden
     _activeDeck = prefs.getString('activeDeck') ?? 'Starterdeck';
+    //Freigeschaltete Decks laden
+    _unlockedPremiumDecks = prefs.getStringList('unlockedDecks') ?? [];
 
     // Wir suchen in der Datenbank nach den Hobbys, die diese Titel haben
     _savedHobbies = HobbyDatabase.dummyHobbies
@@ -91,6 +101,17 @@ class HobbyProvider extends ChangeNotifier {
     await prefs.setStringList('savedHobbies', savedTitles);
     await prefs.setStringList('completedHobbies', completedTitles);
     await prefs.setString('activeDeck', _activeDeck);
+    await prefs.setStringList('unlockedDecks', _unlockedPremiumDecks);
+  }
+
+  //Deck freischalten und sofort wechseln!
+  void unlockPremiumDeck(String deckName) {
+    if (!_unlockedPremiumDecks.contains(deckName)) {
+      _unlockedPremiumDecks.add(deckName);
+      _activeDeck = deckName; // Wechselt automatisch in das neue Deck
+      _saveToPrefs();
+      notifyListeners();
+    }
   }
 
   void addSavedHobby(Hobby hobby) {
@@ -124,6 +145,7 @@ class HobbyProvider extends ChangeNotifier {
     _savedHobbies.clear();
     _completedHobbies.clear();
     _activeDeck = 'Starterdeck';
+    _unlockedPremiumDecks.clear();
     await _saveToPrefs();
     notifyListeners();
   }
