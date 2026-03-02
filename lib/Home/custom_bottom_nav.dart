@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../Theme/app_theme.dart';
 
 class CustomBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -18,13 +18,13 @@ class CustomBottomNav extends StatelessWidget {
       onTap: onTap,
       //Design:_________________________________________________________________
       //Hintergrundfarbe der Leiste
-      backgroundColor: const Color(0xFFFFF6EB),
+      backgroundColor: AppColors.navBarBackground,
 
       //Die Farbe des aktuell ausgewählten Tabs
-      selectedItemColor: Colors.grey.shade800,
+      selectedItemColor: AppColors.textDark,
 
       //Die Farbe der nicht ausgewählten Tabs
-      unselectedItemColor: Colors.grey.shade500,
+      unselectedItemColor: AppColors.textMuted,
 
       //Ein weicher Schatten, der die Leiste leicht vom Hintergrund abhebt
       elevation: 15,

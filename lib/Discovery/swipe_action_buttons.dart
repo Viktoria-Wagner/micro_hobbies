@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:new_micro_hobbies/Theme/app_theme.dart';
 
 class SwipeActionButtons extends StatelessWidget {
   final CardSwiperController controller;
@@ -18,7 +19,7 @@ class SwipeActionButtons extends StatelessWidget {
           //Ablehnen-Button
           FloatingActionButton(
             onPressed: () => controller.swipe(CardSwiperDirection.left),
-            backgroundColor: const Color(0xFFF4A896),
+            backgroundColor: AppColors.actionRed,
             elevation: 4,
             //Ein subtiler Schatten
             shape: const CircleBorder(),
@@ -28,7 +29,7 @@ class SwipeActionButtons extends StatelessWidget {
           //Undo-Button
           FloatingActionButton(
             onPressed: () => controller.undo(),
-            backgroundColor: const Color(0xFFB0BEC5),
+            backgroundColor: AppColors.actionGrey,
             elevation: 4,
             shape: const CircleBorder(),
             child: const Icon(Icons.refresh, color: Colors.white, size: 35),
@@ -37,7 +38,7 @@ class SwipeActionButtons extends StatelessWidget {
           // Akzeptieren-Button
           FloatingActionButton(
             onPressed: () => controller.swipe(CardSwiperDirection.right),
-            backgroundColor: const Color(0xFF81C784),
+            backgroundColor: AppColors.actionGreen,
             elevation: 4,
             shape: const CircleBorder(),
             child: const Icon(Icons.check, color: Colors.white, size: 35),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../models/hobby_data.dart';
 import '../SharedWidgets/info_badge.dart';
+import '../Theme/app_theme.dart';
 
 class FavoritesScreen extends StatelessWidget {
   final List<Hobby> savedHobbies;
@@ -20,7 +21,7 @@ class FavoritesScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true, //Erlaubt dem Fenster, höher als 50% des Bildschirms zu werden!
-      backgroundColor: const Color(0xFFFFEAD1), // Generelle Hintergrundfarbe
+      backgroundColor: AppColors.backgroundPastel,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       ),
@@ -44,10 +45,7 @@ class FavoritesScreen extends StatelessWidget {
                   child: Text(
                     hobby.title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: AppTypography.headlineLarge,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -62,19 +60,19 @@ class FavoritesScreen extends StatelessWidget {
                       InfoBadge(
                           icon: Icons.category,
                           text: hobby.category,
-                          bgColor: Colors.orangeAccent.withOpacity(0.3),
+                          bgColor: Colors.orangeAccent.withAlpha(77),
                           textColor: Colors.orange[900]!
                       ),
                       InfoBadge(
                           icon: Icons.schedule,
                           text: hobby.time,
-                          bgColor: Colors.blueAccent.withOpacity(0.3),
+                          bgColor: Colors.blueAccent.withAlpha(77),
                           textColor: Colors.blue[900]!
                       ),
                       InfoBadge(
                         icon: Icons.bolt,
                         text: hobby.difficulty.label,
-                        bgColor: hobby.difficulty.baseColor.withOpacity(0.2),
+                        bgColor: hobby.difficulty.baseColor.withAlpha(51),
                         textColor: hobby.difficulty.baseColor[800]!,
                       ),
                     ],
@@ -82,37 +80,37 @@ class FavoritesScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 24),
-                const Divider(color: Colors.black12, thickness: 2),
+                const Divider(color: AppColors.dividerLight, thickness: 2),
                 const SizedBox(height: 16),
 
                 //Die Kurzbeschreibung als Einleitung
                 Text(
                   hobby.description,
-                  style: const TextStyle(fontSize: 18, fontStyle: FontStyle.italic, fontWeight: FontWeight.w600),
+                  style:   AppTypography.descriptionItalic
                 ),
                 const SizedBox(height: 24),
 
                 //Materialien
-                const Text(
+                Text(
                   'Das brauchst du:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.orange),
+                  style: AppTypography.highlightText,
                 ),
                 const SizedBox(height: 8),
                 Text(
                   '• ${hobby.materials}',
-                  style: TextStyle(fontSize: 16, height: 1.5, color: Colors.grey[850]),
+                  style: AppTypography.body,
                 ),
                 const SizedBox(height: 24),
 
                 //Die detaillierte Anleitung
-                const Text(
+                Text(
                   'So geht\'s:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.orange),
+                  style: AppTypography.highlightText,
                 ),
                 const SizedBox(height: 8),
                 Text(
                   hobby.details,
-                  style: TextStyle(fontSize: 16, height: 1.5, color: Colors.grey[850]),
+                  style: AppTypography.body,
                 ),
                 const SizedBox(height: 10),
               ],
@@ -140,23 +138,15 @@ class FavoritesScreen extends StatelessWidget {
                 color: Colors.orange[200],
               ),
               const SizedBox(height: 24),
-              const Text(
+              Text(
                 'Noch keine Favoriten?',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: AppTypography.headlineMedium,
               ),
               const SizedBox(height: 12),
               Text(
                 'Gehe zum Entdecken-Tab und wische Karten nach rechts, um dir Hobbys für später zu merken.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                  height: 1.4,
-                ),
+                style:AppTypography.body.copyWith(color: AppColors.textMuted),
               ),
             ],
           ),
@@ -178,8 +168,8 @@ class FavoritesScreen extends StatelessWidget {
           //Hintergrund beim Wischen nach Rechts (Löschen)
           background: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFF4A896),
-              borderRadius: BorderRadius.circular(12),
+              color: AppColors.actionRed,
+              borderRadius: AppStyles.radiusSmall,
             ),
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(left: 20),
@@ -190,8 +180,8 @@ class FavoritesScreen extends StatelessWidget {
           // Hintergrund beim Wischen nach Links (Erledigt!)
           secondaryBackground: Container(
             decoration: BoxDecoration(
-              color: Color(0xFFF8D364),
-              borderRadius: BorderRadius.circular(12),
+              color: AppColors.actionYellow,
+              borderRadius: AppStyles.radiusSmall,
             ),
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.only(right: 20),
@@ -217,25 +207,26 @@ class FavoritesScreen extends StatelessWidget {
             elevation: 4,
             margin: const EdgeInsets.only(bottom: 12),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: AppStyles.radiusSmall,
             ),
             child: ListTile(
               onTap: () => _zeigeDetails(context, hobby),
               // HIER ist der Klick für die Details!
               leading: CircleAvatar(
-                backgroundColor: const Color(0x8CE5A8F3),
+                backgroundColor: AppColors.avatarPurple,
                 child: SvgPicture.asset(
                   hobby.svgPath,
                 ),
               ),
               title: Text(
                 hobby.title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: AppTypography.bodyBold,
               ),
               subtitle: Text(
                 hobby.description,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                style: AppTypography.subtitle,
               ),
             ),
           ),

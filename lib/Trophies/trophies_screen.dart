@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Theme/app_theme.dart';
 import '../models/hobby_data.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,18 +38,19 @@ class TrophiesScreen extends StatelessWidget {
 
   // Hilfsmethode für den leeren Zustand (Text auf dem Regal)
   Widget _buildEmptyStateForShelf() {
-    return const Center(
+    return Center(
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         // Ein Container mit leicht transparentem Hintergrund macht den Text
         // auf dem Holz besser lesbar.
         child: Card(
-          color: Color(0xAAFFEAD1), // Dein Beige, aber leicht durchsichtig
+          color: AppColors.backgroundPastelTransparent,
+          shape: RoundedRectangleBorder(borderRadius: AppStyles.radiusLarge),
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Text(
               'Dein Trophäenschrank ist noch leer. 🪹\n\nErledige Hobbys, um hier Badges zu sammeln!',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: AppTypography.bodyBold,
               textAlign: TextAlign.center,
             ),
           ),
@@ -80,9 +82,8 @@ class TrophiesScreen extends StatelessWidget {
           child: Tooltip(
             message: hobby.title,
             preferBelow: false,
-            textStyle: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
-            decoration: BoxDecoration(color: Colors.black87, borderRadius: BorderRadius.circular(10)),
-            child: SvgPicture.asset(
+            textStyle: AppTypography.textWhiteBold.copyWith(fontSize: 14),
+            decoration: BoxDecoration(color: AppColors.textDark, borderRadius: AppStyles.radiusSmall),             child: SvgPicture.asset(
               hobby.svgPath,
               width: 55,  // Hier kannst du die Größe deines SVGs auf dem Brett anpassen
               height: 55,

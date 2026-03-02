@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_micro_hobbies/Theme/app_theme.dart';
 import 'Home/home_screen.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'MicroHobbies',
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFFFEAD1),
+        scaffoldBackgroundColor: AppColors.backgroundPastel,
         useMaterial3: true,//package
       ),
       home: const HomeScreen(),//Aufruf des Startbildschirms

@@ -9,6 +9,7 @@ import '../Settings/settings_screen.dart';
 import 'package:confetti/confetti.dart';
 import '../SharedWidgets/trophy_dialog.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
+import '../Theme/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,13 +44,13 @@ class _HomeScreenState extends State<HomeScreen> {
           content: Text(
             '${myCards[previousIndex].title} gemerkt! 🥳',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            style: AppTypography.bodyBold.copyWith(color: Colors.white),
           ),
           duration: const Duration(milliseconds: 1000),
-          backgroundColor: Colors.green,
+          backgroundColor: AppColors.actionGreen,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: AppStyles.radiusLarge,
           ),
           margin: EdgeInsets.only(
             bottom: screenHeight - 170,
@@ -126,10 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
       case 3:
         return const SettingsScreen();
       default:
-        return const Center(
+        return Center(
           child: Text(
             'Fehler: Unbekannter Tab',
-            style: TextStyle(fontSize: 18, color: Colors.grey),
+            style: AppTypography.body.copyWith(color: AppColors.textMuted),
           ),
         );
     }

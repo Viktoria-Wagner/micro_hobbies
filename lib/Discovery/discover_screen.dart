@@ -3,6 +3,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../models/hobby_data.dart';
 import 'swipe_deck.dart';
 import 'swipe_action_buttons.dart';
+import '../theme/app_theme.dart';
 
 class DiscoverScreen extends StatelessWidget {
   final CardSwiperController controller;
@@ -30,16 +31,15 @@ class DiscoverScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.style, size: 80, color: Colors.grey[400]),
+                    Icon(Icons.style, size: 80, color: AppColors.textLight),
                     const SizedBox(height: 16),
                     Text(
                         'Deck durchgespielt!',
-                        style: TextStyle(fontSize: 22, color: Colors.grey[600], fontWeight: FontWeight.bold)
-                    ),
+                        style: AppTypography.headlineMedium  ),
                     const SizedBox(height: 8),
                     Text(
                         'Wähle oben links ein neues Deck aus.',
-                        style: TextStyle(color: Colors.grey[500])
+                        style: AppTypography.subtitle
                     ),
                   ],
                 ),

@@ -2,6 +2,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
+import '../Theme/app_theme.dart';
 import '../models/hobby_data.dart';
 import '../SharedWidgets/info_badge.dart';
 
@@ -47,9 +48,9 @@ class HobbySwipeDeck extends StatelessWidget {
     return SizedBox.expand(
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 2)],
+          color: AppColors.cardWhite,
+          borderRadius: AppStyles.radiusLarge,
+          boxShadow: AppStyles.cardShadow,
         ),
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -60,7 +61,7 @@ class HobbySwipeDeck extends StatelessWidget {
             Text(
               hobby.title,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              style: AppTypography.headlineLarge,
             ),
             const SizedBox(height: 16),
 
@@ -73,19 +74,19 @@ class HobbySwipeDeck extends StatelessWidget {
                 InfoBadge(
                     icon: Icons.category,
                     text: hobby.category,
-                    bgColor: Colors.orangeAccent.withOpacity(0.2),
+                    bgColor: Colors.orangeAccent.withAlpha(51), // 51 entspricht 20% Deckkraft
                     textColor: Colors.orange[800]!
                 ),
                 InfoBadge(
                     icon: Icons.schedule,
                     text: hobby.time,
-                    bgColor: Colors.blueAccent.withOpacity(0.2),
+                    bgColor: Colors.blueAccent.withAlpha(51),
                     textColor: Colors.blue[800]!
                 ),
                 InfoBadge(
                   icon: Icons.bolt,
                   text: hobby.difficulty.label,
-                  bgColor: hobby.difficulty.baseColor.withOpacity(0.2),
+                  bgColor: hobby.difficulty.baseColor.withAlpha(51),
                   textColor: hobby.difficulty.baseColor[800]!,
                 ),
               ],
@@ -96,11 +97,11 @@ class HobbySwipeDeck extends StatelessWidget {
                 child: Text(
                   hobby.description,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18, color: Colors.grey[800], height: 1.4),
+                  style: AppTypography.body,
                 ),
               ),
             ),
-            const Text('Tippe für Details 👆', style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold))
+          Text('Tippe für Details 👆', style: AppTypography.actionHint)
           ],
         ),
       ),
@@ -112,9 +113,9 @@ class HobbySwipeDeck extends StatelessWidget {
     return SizedBox.expand(
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFFFF9F0), // Leichtes Beige für die Rückseite
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10, spreadRadius: 2)],
+          color: AppColors.backgroundPastel,
+          borderRadius: AppStyles.radiusLarge,
+          boxShadow: AppStyles.cardShadow,
         ),
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -128,7 +129,7 @@ class HobbySwipeDeck extends StatelessWidget {
                 Expanded(
                   child: Text(
                     hobby.title,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: AppTypography.headlineMedium,
                   ),
                 ),
               ],
@@ -141,18 +142,17 @@ class HobbySwipeDeck extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('So geht\'s:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.orange)),
-                    const SizedBox(height: 8),
+                    Text('So geht\'s:', style: AppTypography.highlightText),                    const SizedBox(height: 8),
                     Text(
                       hobby.details,
-                      style: TextStyle(fontSize: 16, color: Colors.grey[800], height: 1.4),
+                      style: AppTypography.body,
                     ),
                     const SizedBox(height: 20),
-                    const Text('Das brauchst du:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.orange)),
+                    Text('Das brauchst du:', style: AppTypography.highlightText),
                     const SizedBox(height: 8),
                     Text(
                       '• ${hobby.materials}', // Als kleiner Spiegelstrich
-                      style: TextStyle(fontSize: 16, color: Colors.grey[800], height: 1.4),
+                      style: AppTypography.body,
                     ),
                   ],
                 ),
@@ -160,8 +160,8 @@ class HobbySwipeDeck extends StatelessWidget {
             ),
 
             const SizedBox(height: 10),
-            const Center(
-              child: Text('Tippe zum Umdrehen 🔄', style: TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold)),
+            Center(
+              child: Text('Tippe zum Umdrehen 🔄', style: AppTypography.actionHint),
             )
           ],
         ),

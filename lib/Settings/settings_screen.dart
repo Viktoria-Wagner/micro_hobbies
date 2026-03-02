@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../Theme/app_theme.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -16,7 +17,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFEAD1),
+      backgroundColor: AppColors.backgroundPastel,
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
@@ -26,27 +27,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               children: [
                 ListTile(
-                  leading: const Icon(Icons.apple, color: Colors.black87),
-                  title: const Text('Mit Apple anmelden'),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black26),
+                  leading: const Icon(Icons.apple, color:AppColors.textDark),
+                  title: Text('Mit Apple anmelden', style: AppTypography.body),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
                   onTap: () {},
                 ),
-                const Divider(height: 1, indent: 50, color: Colors.black12),
+                AppStyles.listDivider,
                 ListTile(
                   leading: SvgPicture.asset(
                     'assets/svg/google-svgrepo-com.svg',
                     width: 24,
                     height: 24,
                   ),
-                  title: const Text('Mit Google anmelden'),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black26),
+                  title: Text('Mit Google anmelden', style: AppTypography.body),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
                   onTap: () {},
                 ),
-                const Divider(height: 1, indent: 50, color: Colors.black12),
+                AppStyles.listDivider,
                 ListTile(
-                  leading: const Icon(Icons.email_outlined, color: Colors.orangeAccent),
-                  title: const Text('Mit E-Mail anmelden'),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.black26),
+                  leading: const Icon(Icons.email_outlined, color: AppColors.primaryAccent),
+                  title: Text('Mit E-Mail anmelden', style: AppTypography.body),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.dividerLight),
                   onTap: () {},
                 ),
               ],
@@ -63,17 +64,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SwitchListTile(
                   activeColor: Colors.orangeAccent, // Weicheres Orange
                   secondary: Icon(Icons.dark_mode_outlined, color: Colors.deepPurple[300]), // Weicheres Lila
-                  title: const Text('Dark Mode'),
+                  title: Text('Dark Mode', style: AppTypography.body),
                   value: _isDarkMode,
                   onChanged: (bool value) {
                     setState(() => _isDarkMode = value);
                   },
                 ),
-                const Divider(height: 1, indent: 50, color: Colors.black12),
                 //Sprache
+                AppStyles.listDivider,
                 ListTile(
                   leading: Icon(Icons.language, color: Colors.blue[300]),
-                  title: const Text('Sprache'),
+                  title: Text('Sprache', style: AppTypography.body),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -83,19 +84,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ],
                   ),
                 ),
-                const Divider(height: 1, indent: 50, color: Colors.black12),
                 //Schriftgröße
+                AppStyles.listDivider,
                 ListTile(
                   leading: Icon(Icons.format_size, color: Colors.green[300]),
-                  title: const Text('Schriftgröße'),
+                  title: Text('Schriftgröße', style: AppTypography.body),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 50, right: 16, bottom: 16),
                   child: SegmentedButton<String>(
-                    segments: const [
-                      ButtonSegment(value: 'Klein', label: Text('Klein')),
-                      ButtonSegment(value: 'Mittel', label: Text('Mittel')),
-                      ButtonSegment(value: 'Groß', label: Text('Groß')),
+                    segments: [
+                      ButtonSegment(value: 'Klein', label: Text('Klein', style: AppTypography.body)),
+                      ButtonSegment(value: 'Mittel', label: Text('Mittel', style: AppTypography.body)),
+                      ButtonSegment(value: 'Groß', label: Text('Groß', style: AppTypography.body)),
                     ],
                     selected: {_selectedFontSize},
                     onSelectionChanged: (Set<String> newSelection) {
@@ -107,13 +108,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       backgroundColor: WidgetStateProperty.resolveWith<Color>(
                             (Set<WidgetState> states) {
                           if (states.contains(WidgetState.selected)) {
-                            return Colors.orangeAccent.withOpacity(0.2); // Noch sanfteres Pastell-Orange
+                            return AppColors.primaryAccent.withAlpha(51);
                           }
                           return Colors.transparent;
                         },
                       ),
-                      // Macht die Ränder des SegmentedButtons weicher
-                      side: WidgetStateProperty.all(BorderSide(color: Colors.orangeAccent.withOpacity(0.3))),
+                      side: WidgetStateProperty.all(BorderSide(color: AppColors.primaryAccent.withAlpha(77))),
                     ),
                   ),
                 ),
@@ -125,24 +125,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _buildSectionHeader('Daten'),
           _buildPastelCard(
             child: ListTile(
-              leading: Icon(Icons.delete_forever, color: Colors.red[300]),
-              title: Text('Fortschritt zurücksetzen', style: TextStyle(color: Colors.red[400])),
+              leading: Icon(Icons.delete_forever, color: Colors.red[400]),
+              title: Text('Fortschritt zurücksetzen', style: AppTypography.body.copyWith(color: Colors.red[400])),
               onTap: () {},
             ),
           ),
           const SizedBox(height: 40),
           //Über den Entwickler
           const SizedBox(height: 10),
-          const Text(
+          Text(
             'Made with ❤️ by Viktoria Wagner',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black54),
+            style: AppTypography.bodyBold.copyWith(color: AppColors.textMuted),
           ),
           const SizedBox(height: 5),
-          const Text(
+          Text(
             'Micro Hobbies v1.0.0',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.black38),
+            style: AppTypography.subtitle,
           ),
           const SizedBox(height: 40),
         ],
@@ -156,12 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       padding: const EdgeInsets.only(left: 16, bottom: 8),
       child: Text(
         title.toUpperCase(),
-        style: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: Colors.black45, // Weicheres Grau
-          letterSpacing: 1.2,
-        ),
+        style: AppTypography.sectionHeader,
       ),
     );
   }
@@ -170,9 +165,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildPastelCard({required Widget child}) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.black.withOpacity(0.05)),
+        color: AppColors.cardWhite,
+        borderRadius: AppStyles.radiusLarge,
+        border: Border.all(color: AppColors.dividerLight),
       ),
       child: child,
     );
@@ -192,12 +187,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.orangeAccent.withOpacity(0.2) : Colors.transparent,
+          color: isSelected ? AppColors.primaryAccent.withAlpha(51) : Colors.transparent,
           border: Border.all(
-            color: isSelected ? Colors.orangeAccent : Colors.black12,
+            color: isSelected ? AppColors.primaryAccent : AppColors.dividerLight,
             width: 2,
           ),
-          borderRadius: BorderRadius.circular(12), // Etwas runder für den Pastell-Look
+          borderRadius: AppStyles.radiusSmall,
         ),
         child: Text(
           emoji,

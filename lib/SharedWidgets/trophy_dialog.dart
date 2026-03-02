@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../models/hobby_data.dart'; // Pfad ggf. anpassen!
+import '../Theme/app_theme.dart';
+import '../models/hobby_data.dart';
 
 class TrophyDialog extends StatelessWidget {
   final Hobby hobby;
@@ -13,12 +14,12 @@ class TrophyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: const Color(0xFFFFEAD1),
-      title: const Text(
+      shape: RoundedRectangleBorder(borderRadius: AppStyles.radiusLarge),
+      backgroundColor: AppColors.backgroundPastel,
+      title: Text(
         'Trophäe freigeschaltet!',
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: AppTypography.headlineMedium,
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -32,7 +33,7 @@ class TrophyDialog extends StatelessWidget {
           Text(
             'Du hast "${hobby.title}" gemeistert.\nSuper gemacht!',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16),
+            style: AppTypography.body,
           ),
         ],
       ),
@@ -40,13 +41,13 @@ class TrophyDialog extends StatelessWidget {
       actions: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orangeAccent,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            backgroundColor: AppColors.primaryAccent,
+            shape: RoundedRectangleBorder(borderRadius: AppStyles.radiusSmall),
           ),
           onPressed: () {
-            Navigator.of(context).pop(); // Schließt das Pop-up
+            Navigator.of(context).pop(); //schließt pop-up
           },
-          child: const Text('Juhu!', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          child: Text('Juhu!', style: AppTypography.textWhiteBold),
         ),
       ],
     );
