@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../community/suggestion_screen.dart';
 import '../theme/app_theme.dart';
 import 'deck_list_tile.dart';
 
@@ -51,6 +52,32 @@ class DeckDrawer extends StatelessWidget {
                 ],
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Divider(color: AppColors.dividerLight, indent: 16, endIndent: 16),
+            ),
+
+            // --- COMMUNITY SECTION ---
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Text('COMMUNITY', style: AppTypography.sectionHeader),
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.lightbulb_outline_rounded, color: AppColors.primaryAccent),
+              title: Text('Idee einsenden', style: AppTypography.bodyBold),
+              trailing: Icon(Icons.arrow_forward_ios_rounded, size: 16, color: AppColors.textLight),
+              onTap: () {
+                Navigator.pop(context); // Drawer schließen
+                // Zum Formular navigieren
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SuggestionScreen()),
+                );
+              },
+            ),
+            const SizedBox(height: 40), // Etwas Platz unten
           ],
         ),
       ),

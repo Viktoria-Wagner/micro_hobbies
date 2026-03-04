@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: AppStyles.radiusLarge,
           ),
+          //Margin schiebt die SnackBar an den oberen Rand
           margin: EdgeInsets.only(
             bottom: screenHeight - 170,
             left: 20,
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //sonst wird custom bottom nav nicht sofort geändert, sondern erst nach Verwendung
+    //sonst wird custom bottom nav bei DarkMode nicht sofort geändert, sondern erst nach Verwendung
     context.watch<ThemeProvider>();
     final hobbyProvider = context.watch<HobbyProvider>();
     return Scaffold(
